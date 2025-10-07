@@ -1,50 +1,83 @@
 # Seismic Data Acquisition Unit
 
-## Project Overview
+## 🧭 Overview
 
-The Seismic Data Acquisition Unit is a critical component in earthquake monitoring systems, designed to efficiently collect seismic data from transducers and securely transmit this data to data centers for analysis. This project was developed as part of the SEP400 coursework to demonstrate proficiency in real-time data processing, network communications, and security against potential cyber threats.
+The **Seismic Data Acquisition Unit (SDAU)** is a core subsystem in earthquake monitoring architectures, designed to **collect, process, and transmit real-time seismic data** from field transducers to centralized data centers for analysis.
 
-## Features
+This project was developed as part of the **SEP400 (Software Engineering Project)** coursework to demonstrate competencies in **real-time systems design, network programming, concurrent data handling**, and **cybersecurity resilience** against unauthorized access.
 
-- **Real-Time Data Collection**: Retrieves seismic data from transducers through shared memory, ensuring timely data acquisition.
-- **Secure Data Transmission**: Uses INET datagram sockets to transmit seismic data to authenticated data centers, ensuring data integrity and confidentiality.
-- **Robust Security Measures**: Implements mechanisms to protect against brute-force password attacks and denial-of-service attacks from rogue data centers.
-- **Efficient Data Handling**: Employs mutex synchronization to manage the concurrent data flow between the data acquisition unit and data centers, minimizing data loss and ensuring reliability.
+---
 
-## Installation
+## ⚙️ Key Features
 
-1. Clone the repository to your local machine:
+* **Real-Time Data Collection**
+  Continuously retrieves seismic readings from transducers via shared memory, ensuring timely acquisition of seismic signals.
 
-    ```
-    git clone https://github.com/Fahad-Ali-Khan-ca/Seismic-Data-Acquisition-Unit-.git
-    ```
+* **Secure Network Transmission**
+  Utilizes **INET datagram sockets** for transmitting seismic packets to authenticated data centers with built-in **integrity and confidentiality mechanisms**.
 
-2. Navigate to the project directory:
+* **Concurrent Data Management**
+  Employs **mutex synchronization** to manage data flow between acquisition and transmission threads, minimizing latency and preventing data collisions.
 
-    ```
-    cd Seismic-Data-Acquisition-Unit-
-    ```
+* **Robust Security Mechanisms**
+  Implements password-based authentication, brute-force detection, and **denial-of-service (DoS)** mitigation to block rogue or excessive connection attempts.
 
-3. Testing
-   - To test the system, code and binaries for the data acquisition unit and the transducer should be in one directory, and code and binaries for the data center in another directory.
-   - The start batch file for the transducer and data acquisition unit should be run first, and shortly after the start batch file for the data centers.
-   - The start batch file for the data centers will run 4 valid data centers and two rogue data centers.
-   - Once communications have been established, you should see data centers 1-4 receiving data from the data center acquisition unit. Data centers 5 and 6 should be blocked.
-   - After 30 seconds all data centers shut down.
+---
 
-## Design and Implementation
+## 🧩 System Architecture
 
-- **Transducer**: Simulates seismic data generation and writes data to shared memory.
-- **Seismic Data Acquisition Unit**: Retrieves data from shared memory and transmits it to subscribed data centers over the network.
-- **Data Centers**: Subscribes to the data acquisition unit to receive seismic data streams for analysis.
+| Component                                | Description                                                                                              |
+| ---------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| **Transducer**                           | Simulates seismic activity and writes data to shared memory.                                             |
+| **Seismic Data Acquisition Unit (SDAU)** | Retrieves data from shared memory and securely transmits it to authorized data centers.                  |
+| **Data Centers**                         | Subscribe to the SDAU and receive validated seismic data streams for further analysis and visualization. |
 
+---
 
-## Security Features
+## 🔐 Security Highlights
 
-- **Password Authentication**: Ensures that only authorized data centers can subscribe to receive data.
-- **Brute-Force Attack Protection**: Monitors subscription attempts to identify and block rogue entities trying to guess passwords.
-- **Denial-of-Service Attack Mitigation**: Tracks data center activity to prevent overwhelming the data acquisition unit with excessive data.
+* **Password Authentication:** Ensures only verified data centers can subscribe to the SDAU.
+* **Brute-Force Protection:** Monitors and blocks repeated failed authentication attempts.
+* **DoS Mitigation:** Detects and isolates data centers exhibiting malicious or excessive request behavior.
 
-## Acknowledgments
+---
 
-This project was developed as an assignment for the SEP400 course. Special thanks to the course instructors and peers for their support and guidance throughout the project development.
+## 🧪 Installation & Testing
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/Fahad-Ali-Khan-ca/Seismic-Data-Acquisition-Unit-.git
+cd Seismic-Data-Acquisition-Unit-
+```
+
+### 2. Project Setup
+
+* Place **transducer** and **data acquisition unit** code/binaries in the same directory.
+* Place **data center** code/binaries in a separate directory.
+
+### 3. Run the Simulation
+
+* Run the **start batch file** for the transducer and data acquisition unit first.
+* After a short delay, run the **start batch file** for the data centers.
+
+### 4. Expected Output
+
+* Data Centers **1–4** (valid) will receive data streams.
+* Data Centers **5–6** (rogue) will be automatically blocked.
+* After ~30 seconds, all components terminate safely.
+
+---
+
+## 🧱 Design Principles
+
+* **Modularity:** Each subsystem (transducer, acquisition, and data center) operates independently.
+* **Scalability:** Supports multiple concurrent data centers without loss of data fidelity.
+* **Security-first Design:** Authentication and monitoring embedded in the communication layer.
+
+---
+
+## 📚 Acknowledgments
+
+Developed as part of **SEP400: Software Engineering Project** at **Seneca Polytechnic**.
+Special thanks to the course instructors and peers for their valuable feedback and collaboration.
